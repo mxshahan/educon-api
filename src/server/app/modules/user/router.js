@@ -51,8 +51,9 @@ export const routes = [
   },
   {
     method: 'DELETE',
-    route: '/:id',
+    route: '/',
     handlers: [
+      isAuthenticated,
       deleteUser
     ]
   }

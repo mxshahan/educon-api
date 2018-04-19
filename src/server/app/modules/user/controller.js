@@ -74,10 +74,16 @@ const IndexUser = async (ctx) => {
   } catch (e) {
     ctx.throw(422, e.message);
   } finally {
-    ctx.body = {
-      data: Users,
-      message: 'Your Data Matched...'
-    };
+    if (Users) {
+      ctx.body = {
+        data: Users,
+        message: 'Your Data Matched...'
+      };
+    } else {
+      ctx.body = {
+        message: 'No User Matched...'
+      };
+    }
   }
 };
 
@@ -120,12 +126,17 @@ const updateUser = async (ctx) => {
 
 const deleteUser = async (ctx) => {
   try {
-    User = await UserCrud.delete({ _id: ctx.state.user.uid });
+    User = await UserCrud.delete({
+      params: {
+        qr: { _id: ctx.state.user.uid }
+      }
+    });
   } catch (e) {
     ctx.throw(404, e.message);
   } finally {
     ctx.body = {
-      body: User
+      data: User,
+      message: 'User Deleted...'
     };
   }
 };
