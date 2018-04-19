@@ -1,0 +1,5 @@
+dist/*.js
+config/*.js
+bin/*.js
+*.test.js
+nuxt.config.js
