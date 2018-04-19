@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose from 'mongoose';
 import validator from 'validator';
 import uniqueValidator from 'mongoose-unique-validator';
 import timestamp from 'mongoose-timestamp';
@@ -45,14 +45,14 @@ const UserSchema = new mongoose.Schema({
   },
   trainer: {
     courses: [{
-      type: Schema.Types.ObjectId,
-      ref: 'course'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'CourseModel'
     }]
   },
   student: {
     enrolled: [{
-      type: Schema.Types.ObjectId,
-      ref: 'course'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'CourseModel'
     }]
   }
 });
