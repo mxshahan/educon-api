@@ -47,12 +47,20 @@ const UserSchema = new mongoose.Schema({
     courses: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'CourseModel'
+    }],
+    test: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'TestModel'
     }]
   },
   student: {
     enrolled: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'CourseModel'
+    }],
+    test: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'TestModel'
     }]
   }
 });

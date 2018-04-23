@@ -1,13 +1,13 @@
 import Router from 'koa-router';
 
-import { todoRouteProps } from './todo';
 import { UserRouteProps } from './user';
 import { CourseRouteProps } from './course';
+import { TestRouteProps } from './test';
 
 const routerControllPros = [
-  todoRouteProps,
   UserRouteProps,
-  CourseRouteProps
+  CourseRouteProps,
+  TestRouteProps
 ];
 
 let instance;

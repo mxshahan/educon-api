@@ -15,6 +15,10 @@ const CourseSchema = new mongoose.Schema({
     trim: true,
     required: [true, 'Category is required!']
   },
+  description: {
+    type: String,
+    trim: true
+  },
   price: {
     type: Number
   },

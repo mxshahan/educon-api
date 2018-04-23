@@ -70,7 +70,7 @@ const IndexUser = async (ctx) => {
   try {
     Users = await UserCrud.single({
       qr: { _id: ctx.state.user.uid },
-      populate: 'trainer.courses student.enrolled'
+      populate: 'trainer.courses trainer.test student.enrolled'
     });
   } catch (e) {
     ctx.throw(422, e.message);
@@ -92,7 +92,7 @@ const singleUser = async (ctx) => {
   try {
     User = await UserCrud.single({
       qr: { _id: ctx.params.id },
-      populate: 'trainer.courses student.enrolled'
+      populate: 'trainer.courses trainer.test student.enrolled'
     });
   } catch (e) {
     ctx.throw(404, e.message);

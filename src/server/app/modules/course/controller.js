@@ -45,10 +45,16 @@ const singleCourse = async (ctx) => {
   } catch (e) {
     ctx.throw(404, e.message);
   } finally {
-    ctx.body = {
-      data: Course,
-      message: 'Course Found...'
-    };
+    if (Course) {
+      ctx.body = {
+        data: Course,
+        message: 'Course Found...'
+      };
+    } else {
+      ctx.body = {
+        message: 'Course Not Found'
+      };
+    }
   }
 };
 
@@ -108,28 +114,44 @@ const updateCourse = async (ctx) => {
   }
 };
 
-// const deleteCourse = async (ctx) => {
-//   try {
-//     Course = await CourseCrud.delete({
-//       params: {
-//         qr: { _id: ctx.state.Course.uid }
-//       }
-//     });
-//   } catch (e) {
-//     ctx.throw(404, e.message);
-//   } finally {
-//     ctx.body = {
-//       data: Course,
-//       message: 'Course Deleted...'
-//     };
-//   }
-// };
+const deleteCourse = async (ctx) => {
+  try {
+    Courses = await UserCrud.single({
+      qr: { _id: ctx.state.user.uid },
+      select: 'trainer.courses'
+    });
+    isMatched = Courses.trainer.courses.indexOf(ctx.params.id);
+  } catch (e) {
+    ctx.throw(412, e.message);
+  } finally {
+    if (isMatched !== -1) {
+      try {
+        Course = await CourseCrud.delete({
+          params: {
+            qr: { _id: ctx.params.id }
+          }
+        });
+      } catch (e) {
+        ctx.throw(422, e.message);
+      } finally {
+        ctx.body = {
+          data: Course,
+          message: 'Course Deleted...'
+        };
+      }
+    } else {
+      ctx.body = {
+        message: 'You don\'t have rights to delete this Course'
+      };
+    }
+  }
+};
 
 export {
   allCourse,
   myCourses,
   singleCourse,
   createCourse,
-  updateCourse
-  // deleteCourse
+  updateCourse,
+  deleteCourse
 };
